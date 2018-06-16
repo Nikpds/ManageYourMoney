@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MYM.Api.Models;
 
 namespace MYM.Api.Controllers
 {
@@ -15,18 +16,27 @@ namespace MYM.Api.Controllers
         {
             return new string[] { "value1", "value2" };
         }
+        [Route("route2")]
+        [HttpGet]
+        public IEnumerable<string> Get2()
+        {
+            return new string[] { "sad", "ads" };
+        }
+
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+           
+            return Ok(id);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public String Post([FromBody]string value)
         {
+            return value;
         }
 
         // PUT api/values/5
