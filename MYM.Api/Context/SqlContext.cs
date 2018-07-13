@@ -11,7 +11,9 @@ namespace MYM.Api.Context
     {
         public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }
 
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,8 +25,20 @@ namespace MYM.Api.Context
             userBuilder.Property(p => p.Email).IsRequired();
             userBuilder.Property(p => p.Lastname).IsRequired();
             userBuilder.Property(p => p.Name).IsRequired();
+            userBuilder.HasMany(i => i.Bills)
+                       .WithOne(u => u.User)
+                       .HasForeignKey(f => f.UserId);
+
             #endregion
-            
+
+            #region Bill
+            var billBuilder = modelBuilder.Entity<Bill>();
+            billBuilder.HasKey(h => h.Id);
+            billBuilder.Property(p => p.UserId).IsRequired();
+            billBuilder.Property(p => p.Amount).IsRequired();
+            billBuilder.Property(p => p.Date).IsRequired();
+            #endregion
+
         }
     }
 }
