@@ -7,6 +7,6 @@ namespace MYM.Api.Models
 {
     public class UserRequest
     {
-        public DateTime Date { get; set; }
+        public DateTime RequestDate { get; set; }
     }
 }

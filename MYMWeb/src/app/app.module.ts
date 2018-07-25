@@ -5,10 +5,16 @@ import { RouterModule, Route } from '@angular/router';
 
 import { ToastrModule } from 'ngx-toastr';
 import { LayoutModule } from './layout/layout.module';
+import { BillModule } from './bill/bill.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
-
+const config = {
+  autoDismiss: true,
+  positionClass: 'toast-top-right',
+  closeButton: true,
+  preventDuplicates: true
+};
 const routes: Route[] = [];
 @NgModule({
   declarations: [
@@ -17,14 +23,13 @@ const routes: Route[] = [];
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    BillModule,
     RouterModule.forRoot(routes),
     AuthModule,
     LayoutModule,
     SharedModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-fullwidth',
-      closeButton: true
-    }),
+    ToastrModule.forRoot(config)
+
   ],
   providers: [
 

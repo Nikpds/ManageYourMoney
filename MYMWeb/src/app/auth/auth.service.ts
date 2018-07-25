@@ -14,7 +14,7 @@ export class AuthService {
 
   private loggedInSubject$ = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedInSubject$.asObservable();
-
+  jwt = new JwtHelperService();
   get loggedIn(): boolean {
     return this.loggedInSubject$.getValue();
   }
@@ -25,23 +25,25 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private jwt: JwtHelperService
-  ) { }
+  ) {
+    this.loggedIn = this.isAuthanticated;
+  }
 
   getToken() {
     return localStorage.getItem('token');
   }
 
   get isAuthanticated() {
-    return this.jwt.isTokenExpired(this.getToken());
+    return !this.jwt.isTokenExpired(this.getToken());
   }
 
   initializeUser(token: any) {
 
   }
   login(username: string, password: string) {
-    return this.http.post<any>('/api/authenticate', { username: username, password: password })
+    return this.http.post<any>(this.authUrl, { username: username, password: password })
       .pipe(map((data: any) => {
+        console.log(data);
         const token = data['token'];
         if (token) {
           localStorage.setItem('token', token);

@@ -59,14 +59,34 @@ namespace MYM.Api.Controllers
         }
 
         [Route("info")]
+        [HttpGet]
         public IActionResult GetInfo()
         {
+            var userId = User.GetUserId();
             UserInfo info = new UserInfo();
             var d = DateTime.UtcNow;
-            var bills = _ctx.Bills.Where(w => w.Date.Month == d.Month && w.Date.Year == d.Year);
+            var bills = _ctx.Bills.Where(w => w.PaidDate.Month == d.Month && w.PaidDate.Year == d.Year && w.UserId == userId);
             info.Total = bills.Sum(x => x.Amount);
             info.TotalBills = bills.Count();
             return Ok(info);
+        }
+
+        [AllowAnonymous]
+        [Route("insert")]
+        [HttpGet]
+        public IActionResult NewUser()
+        {
+            User user = new User();
+            user.Name = "Νίκος";
+            user.Lastname = "Περπερίδης";
+            user.Email = "perpegr@hotmail.com";
+            user.Password = AuthManager.HashPassword("123");
+            user.BirthDate = DateTime.Parse("04-06-1986");
+            user.Confirmed = true;
+            _ctx.Users.Add(user);
+            _ctx.SaveChanges();
+
+            return Ok("ok");
         }
 
     }

@@ -4,9 +4,7 @@ using MYM.Api.Context;
 using MYM.Api.Models;
 using MYM.Api.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MYM.Api.Controllers
 {
@@ -25,8 +23,16 @@ namespace MYM.Api.Controllers
         {
             try
             {
-                bill.Date = DateTime.UtcNow;
+                bill.PaidDate = DateTime.UtcNow;
+                bill.UserId = User.GetUserId();
+                var category = _ctx.Categories.Find(bill.CatId);
 
+                if (category == null)
+                {
+                    return BadRequest("Δεν βρέθηκε η κατηγορία");
+                }
+
+                bill.Category = category.Description;
                 if (!bill.IsValid())
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
@@ -54,7 +60,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 original.Amount = bill.Amount;
-                original.CategoryId = bill.CategoryId;
+                //original.CategoryId = bill.CategoryId;
 
                 var result = _ctx.Bills.Update(original);
                 _ctx.SaveChanges();
@@ -99,8 +105,8 @@ namespace MYM.Api.Controllers
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
-
-                var original = _ctx.Bills.Find(id);
+                var userId = User.GetUserId();
+                var original = _ctx.Bills.Where(x => x.Id == id && x.UserId == userId);
 
                 return Ok(original);
             }
@@ -115,12 +121,12 @@ namespace MYM.Api.Controllers
         {
             try
             {
-                if (req.Date == null)
+                if (req.RequestDate == null)
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
-
-                var result = _ctx.Bills.Where(x => x.Date.Month == req.Date.Month && x.Date.Year == req.Date.Year).ToList();
+                var userId = User.GetUserId();
+                var result = _ctx.Bills.Where(x => x.PaidDate > req.RequestDate && x.UserId == userId).ToList();
 
                 return Ok(result);
             }

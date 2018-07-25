@@ -1,0 +1,32 @@
+<nav class="navbar is-dark">
+  <div class="navbar-brand">
+    <a class="navbar-item has-text-white" [routerLink]="['/home']">
+      <img [src]="'../../../assets/dollar.ico'">&nbsp;Money Tracker
+    </a>
+    <div class="navbar-burger burger" [ngClass]="{'is-active': openmenu}" (click)="openmenu = !openmenu" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu" [ngClass]="{'is-active': openmenu}">
+    <div class="navbar-start">
+
+
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-item">
+          Αρχική
+        </a>
+        <a class="navbar-item">
+          Ιστορικό
+        </a>
+        <a class="navbar-item" (click)="logout()">
+          Αποσύνδεση
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,3 +1,35 @@
-<p>
-  login works!
-</p>
+<section class="hero is-dark is-bold is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <figure class="image is-128x128 ">
+        <img class="bounceIn" [src]="'../../../assets/home.png'">
+      </figure>
+      <h1 class="title has-text-centered is-italic">
+        Money Tracker
+      </h1>
+      <div class="field">
+        <label class="label has-text-white">Όνομα Χρήστη</label>
+        <p class="control has-icons-left">
+          <input class="input" type="text" [(ngModel)]="username" placeholder="email">
+          <span class="icon is-small is-left">
+            <i class="fa fa-user"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label has-text-white">Κωδικός</label>
+        <p class="control has-icons-left">
+          <input class="input" type="password" [(ngModel)]="password"  (keyup.enter)="login()" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <br>
+      <div class="field">
+        <a class="button is-white is-outlined is-fullwidth" (click)="login()">Σύνδεση</a>
+      </div>
+    </div>
+  </div>
+
+</section>

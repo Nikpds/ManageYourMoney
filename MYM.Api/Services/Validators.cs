@@ -12,7 +12,7 @@ namespace MYM.Api.Services
         {
             return bill.Amount > 0
                 && !string.IsNullOrEmpty(bill.UserId)
-                && bill.Date != null;
+                && bill.PaidDate != null;
         }
 
         public static bool IsValid(this User user)

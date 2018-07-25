@@ -1,3 +1,20 @@
-<p>
-  home works!
-</p>
+<div class="columns is-marginless has-background-dark">
+  <div class="column is-12">
+    <div class="box is-marginless is-radiusless-bottom">
+      <div class="card-content">
+        <div class="content">
+          <div class="has-text-centered title has-text-info has-text-weight-bold is-size-4">{{today| date:'dd-MM-yyyy'}} <span #time></span></div>
+          <div class="subtitle has-text-centered has-text-info has-text-weight-bold is-size-4">{{today| date:'MMMM'}}</div>
+         
+          <div class="has-text-danger has-text-weight-bold has-text-centered">Τρέχων Ποσό Εξόδων</div>
+          <p class="has-text-centered is-size-2 has-text-danger has-text-weight-bold">{{info.total}} &euro;</p>
+
+          <div class="has-text-centered title has-text-info has-text-weight-bold is-size-6">Συνολικές καταχωρήσεις  {{info.totalBills}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-info is-radiusless-top" [routerLink]="['/bill','new']">Νέα καταχώρηση</a>
+    </div>
+  </div>
+</div>

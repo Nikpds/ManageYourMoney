@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MYM.Api.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MYM.Api.Context
 {
@@ -36,7 +32,7 @@ namespace MYM.Api.Context
             billBuilder.HasKey(h => h.Id);
             billBuilder.Property(p => p.UserId).IsRequired();
             billBuilder.Property(p => p.Amount).IsRequired();
-            billBuilder.Property(p => p.Date).IsRequired();
+            billBuilder.Property(p => p.PaidDate).IsRequired();
             #endregion
 
         }
