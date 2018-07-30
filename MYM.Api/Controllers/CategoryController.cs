@@ -20,11 +20,11 @@ namespace MYM.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public IActionResult Get(int id)
         {
             try
             {
-                if (string.IsNullOrEmpty(id))
+                if (id <= 0)
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
@@ -54,7 +54,7 @@ namespace MYM.Api.Controllers
             }
         }
 
-        [HttpPost("")]
+        [HttpPost("insert")]
         public IActionResult Insert([FromBody] Category cat)
         {
             try
@@ -69,7 +69,7 @@ namespace MYM.Api.Controllers
             }
         }
 
-        [HttpPut("")]
+        [HttpPut("update")]
         public IActionResult Update([FromBody] Category cat)
         {
             try
@@ -85,15 +85,21 @@ namespace MYM.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             try
             {
-                if (string.IsNullOrEmpty(id))
+                if (id <= 0)
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var original = _ctx.Categories.Find(id);
+
+                if (original == null)
+                {
+                    return BadRequest("Λανθασμένα Δεδομένα");
+                }
+
                 _ctx.Categories.Remove(original);
                 _ctx.SaveChanges();
 

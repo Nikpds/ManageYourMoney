@@ -1,11 +1,11 @@
 <div class="columns is-marginless">
   <div class="column is-12" *ngIf="bill">
-    <p class="title is-5">{{bill.id ? bill.category.description : 'Νέα Καταχώρηση'}}</p>
+    <p class="title is-5">{{bill.id ? bill.category : 'Νέα Καταχώρηση'}}</p>
     <div class="field">
       <label class="label">Κατηγορία</label>
       <div class="control is-expanded">
         <div class="select is-fullwidth">
-          <select name="country"  [(ngModel)]="bill.catId">
+          <select name="country" [(ngModel)]="bill.catId">
             <option [value]="c.id" *ngFor="let c of categories">{{c.description}}</option>
           </select>
         </div>
@@ -24,7 +24,13 @@
       </div>
     </div>
     <div class="field">
-        <a class="button is-fullwidth is-info" (click)="insertOrUpate()">Καταχώρηση</a>
-      </div>
+      <a class="button is-fullwidth is-info" (click)="insertOrUpate()">{{bill.id ? 'Αποθήκευση' : 'Νέα Καταχώρηση'}}</a>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-danger" (click)="delete()" *ngIf="bill.id">Διαγραφή</a>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-dark" [routerLink]="['/bills']">{{bill.id ? 'Πίσω' : 'Άκυρο'}}</a>
+    </div>
   </div>
 </div>

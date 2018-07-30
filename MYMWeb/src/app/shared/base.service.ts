@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Bill, Category, UserInfo } from '../model';
+import { Bill, Category, UserInfo, UserRequest } from '../model';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +25,11 @@ export class BaseService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getBillsByMonth(date: UserRequest): Observable<Array<Bill>> {
+    return this.http.post<Array<Bill>>(`${this.billUrl}/bills`, date)
+      .pipe(catchError(this.errorHandler));
+  }
+
   getBill(id: string): Observable<Bill> {
     return this.http.get<Bill>(`${this.billUrl}/${id}`)
       .pipe(catchError(this.errorHandler));
@@ -35,13 +40,33 @@ export class BaseService {
       .pipe(catchError(this.errorHandler));
   }
 
-  deleteBill(id: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.billUrl}/${id}`)
+  getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(`${this.catUrl}/${id}`)
       .pipe(catchError(this.errorHandler));
   }
 
-  getInfo(): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.userUrl}/info`)
+  insertCategory(cat: Category): Observable<Category> {
+    return this.http.post<Category>(`${this.catUrl}/insert`, cat)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  updateCategory(cat: Category): Observable<Category> {
+    return this.http.put<Category>(`${this.catUrl}/update`, cat)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteCategory(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.catUrl}/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteBill(id: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.billUrl}/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getInfo(req: UserRequest): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${this.userUrl}/info`, req)
       .pipe(catchError(this.errorHandler));
   }
 

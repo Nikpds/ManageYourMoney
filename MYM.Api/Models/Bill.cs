@@ -9,7 +9,7 @@ namespace MYM.Api.Models
         public virtual User User { get; set; }
         public DateTime PaidDate { get; set; }
         public string Comment { get; set; }
-        public int Amount { get; set; }
+        public double Amount { get; set; }
 
         public int CatId { get; set; }
         public string Category { get; set; }

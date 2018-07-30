@@ -43,7 +43,6 @@ export class AuthService {
   login(username: string, password: string) {
     return this.http.post<any>(this.authUrl, { username: username, password: password })
       .pipe(map((data: any) => {
-        console.log(data);
         const token = data['token'];
         if (token) {
           localStorage.setItem('token', token);

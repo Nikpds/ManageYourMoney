@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 const config = {
   autoDismiss: true,
-  positionClass: 'toast-top-right',
+  positionClass: 'toast-bottom-center',
   closeButton: true,
   preventDuplicates: true
 };

@@ -26,15 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         return next.handle(req).pipe(
             map(event => {
-                console.log('success');
                 return event;
             }),
             catchError(error => {
-                console.log('error Catched');
                 return throwError(error);
             }),
             finalize(() => {
-                console.log('finalize');
                 this.loader.hide();
             })
         );

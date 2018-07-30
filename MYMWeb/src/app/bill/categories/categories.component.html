@@ -1,0 +1,14 @@
+<div class="columns is-marginless is-multiline">
+  <div class="column">
+    <span class="title is-5">Κατηγορίες Λογαριασμών</span>
+  </div>
+  <div class="column is-paddingless">
+    <div class="panel-block  is-block" [ngClass]="{'has-background-warning-light': odd}" *ngFor="let b of categories;let i =index;let odd=odd">
+      <nav class="level is-mobile" [routerLink]="['/category',b.id]">
+        <div class="level-left">
+          <div class="level-item">{{b.description}}</div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

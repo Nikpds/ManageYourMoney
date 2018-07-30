@@ -59,12 +59,12 @@ namespace MYM.Api.Controllers
         }
 
         [Route("info")]
-        [HttpGet]
-        public IActionResult GetInfo()
+        [HttpPost]
+        public IActionResult GetInfo([FromBody] UserRequest req)
         {
             var userId = User.GetUserId();
             UserInfo info = new UserInfo();
-            var d = DateTime.UtcNow;
+            var d = req.RequestDate;
             var bills = _ctx.Bills.Where(w => w.PaidDate.Month == d.Month && w.PaidDate.Year == d.Year && w.UserId == userId);
             info.Total = bills.Sum(x => x.Amount);
             info.TotalBills = bills.Count();
@@ -77,11 +77,11 @@ namespace MYM.Api.Controllers
         public IActionResult NewUser()
         {
             User user = new User();
-            user.Name = "Νίκος";
-            user.Lastname = "Περπερίδης";
-            user.Email = "perpegr@hotmail.com";
-            user.Password = AuthManager.HashPassword("123");
-            user.BirthDate = DateTime.Parse("04-06-1986");
+            user.Name = "Έλίσα";
+            user.Lastname = "Begaj";
+            user.Email = "elisa.begaj@gmail.com";
+            user.Password = AuthManager.HashPassword("1990");
+            user.BirthDate = DateTime.Parse("12-04-1990");
             user.Confirmed = true;
             _ctx.Users.Add(user);
             _ctx.SaveChanges();

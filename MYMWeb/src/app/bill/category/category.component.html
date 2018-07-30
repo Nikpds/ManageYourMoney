@@ -1,0 +1,21 @@
+<div class="columns is-marginless">
+  <div class="column is-12" *ngIf="category">
+    <p class="title is-5">{{category.id ? category.description : 'Νέα Κατηγορία'}}</p>
+    <div class="field">
+    <div class="field">
+      <label class="label">Τίτλος</label>
+      <div class="control">
+        <input class="input" [(ngModel)]="category.description" type="text">
+      </div>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-info" (click)="insertOrUpate()">{{category.id ? 'Αποθήκευση' : 'Νέα Καταχώρηση'}}</a>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-danger" (click)="delete()" *ngIf="category.id">Διαγραφή</a>
+    </div>
+    <div class="field">
+      <a class="button is-fullwidth is-dark" [routerLink]="['/categories']">{{category.id ? 'Πίσω' : 'Άκυρο'}}</a>
+    </div>
+  </div>
+</div>

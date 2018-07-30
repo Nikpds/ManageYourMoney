@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { BaseService } from '../../shared/base.service';
-import { Category, Bill } from '../../model';
+import { Category } from '../../model';
 import { NotifyService } from '../../shared/notify.service';
 @Component({
-  selector: 'app-bill-details',
-  templateUrl: './bill-details.component.html',
-  styleUrls: ['./bill-details.component.sass']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.sass']
 })
-export class BillDetailsComponent implements OnInit {
-  categories = new Array<Category>();
-  bill: Bill;
+export class CategoryComponent implements OnInit {
+  category: Category;
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -20,20 +19,20 @@ export class BillDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getCategories();
     this.activeRoute.params.subscribe((param: Params) => {
       const id = param['id'];
       if (id !== 'new') {
-        this.getBill(id);
+        this.getCategory(id);
       } else {
-        this.bill = new Bill();
+        this.category = new Category();
       }
     });
   }
 
-  getBill(id: string) {
-    this.base.getBill(id).subscribe(res => {
-      this.bill = res;
+  getCategory(id: number) {
+    this.base.getCategory(id).subscribe(res => {
+      this.category = res;
+      console.log(res);
     }, error => {
       this.router.navigate(['/home']);
       this.notify.error(error);
@@ -41,46 +40,41 @@ export class BillDetailsComponent implements OnInit {
   }
 
   insertOrUpate() {
-    this.bill.id ? this.update() : this.insert();
-  }
-
-  getCategories() {
-    this.base.getCategories().subscribe(res => {
-      this.categories = res;
-    }, error => this.notify.error(error));
+    this.category.id ? this.update() : this.insert();
   }
 
   delete() {
-    this.base.deleteBill(this.bill.id).subscribe(res => {
+    this.base.deleteCategory(this.category.id).subscribe(res => {
       if (res) {
-        this.router.navigate(['/bills']);
+        this.router.navigate(['/categories']);
         this.notify.success('Ο λογαριασμός διαγράφτηκε');
       }
     }, error => this.notify.error(error));
   }
 
   update() {
-    this.base.updateBill(this.bill).subscribe(res => {
-      this.bill = res;
+    this.base.updateCategory(this.category).subscribe(res => {
+      this.category = res;
       this.notify.success('Επιτυχής συνναλαγή');
     });
   }
 
   insert() {
     if (!this.checkIfValid()) { return; }
-    this.base.insertBill(this.bill).subscribe(res => {
-      this.bill = res;
+    this.base.insertCategory(this.category).subscribe(res => {
+      this.category = res;
       this.notify.success('Επιτυχής συνναλαγή');
-      this.router.navigate(['/bill', this.bill.id]);
+      this.router.navigate(['/category', this.category.id]);
     }, error => this.notify.error(error));
   }
 
   checkIfValid(): boolean {
-    if (this.bill.catId && this.bill.amount > 0) {
+    if (this.category.description) {
       return true;
     } else {
-      this.notify.warning('Επιλέξτε την κατηγορία και συμπληρώστε το ποσό');
+      this.notify.warning('Συμπληρώστε τον Τίτλο της κατηγορίας');
       return false;
     }
   }
+
 }

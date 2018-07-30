@@ -60,7 +60,9 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 original.Amount = bill.Amount;
-                //original.CategoryId = bill.CategoryId;
+                original.Comment = bill.Comment;
+                original.CatId = bill.CatId;
+                original.Category = bill.Category;
 
                 var result = _ctx.Bills.Update(original);
                 _ctx.SaveChanges();
@@ -106,7 +108,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var userId = User.GetUserId();
-                var original = _ctx.Bills.Where(x => x.Id == id && x.UserId == userId);
+                var original = _ctx.Bills.FirstOrDefault(x => x.Id == id && x.UserId == userId);
 
                 return Ok(original);
             }
@@ -116,7 +118,7 @@ namespace MYM.Api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpPost("bills")]
         public IActionResult GetMonthHistory([FromBody] UserRequest req)
         {
             try
@@ -126,7 +128,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var userId = User.GetUserId();
-                var result = _ctx.Bills.Where(x => x.PaidDate > req.RequestDate && x.UserId == userId).ToList();
+                var result = _ctx.Bills.Where(x => x.PaidDate.Month == req.RequestDate.Month && x.UserId == userId).OrderByDescending(x => x.PaidDate).ToList();
 
                 return Ok(result);
             }

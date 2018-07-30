@@ -1,15 +1,21 @@
-<div class="columns is-marginless has-background-dark">
+<div class="columns is-marginless has-background-primary">
   <div class="column is-12">
     <div class="box is-marginless is-radiusless-bottom">
       <div class="card-content">
         <div class="content">
-          <div class="has-text-centered title has-text-info has-text-weight-bold is-size-4">{{today| date:'dd-MM-yyyy'}} <span #time></span></div>
-          <div class="subtitle has-text-centered has-text-info has-text-weight-bold is-size-4">{{today| date:'MMMM'}}</div>
-         
+          <div class="has-text-centered field title has-text-info has-text-weight-bold is-size-4">{{request.requestDate| date:'dd-MM-yyyy'}}
+            <!-- <span #time></span> -->
+          </div>
+          <div class=" field has-text-centered">
+            <i class="fa fa-caret-left fa-3x has-text-info is-pulled-left" (click)="changeMonth(false)" aria-hidden="true"></i>
+            <span class="subtitl  has-text-info center-month has-text-weight-bold is-size-4">{{request.requestDate| date:'MMMM'}}</span>
+            <i class="fa fa-caret-right fa-3x has-text-info is-pulled-right" (click)="changeMonth(true)" aria-hidden="true"></i>
+          </div>
+
           <div class="has-text-danger has-text-weight-bold has-text-centered">Τρέχων Ποσό Εξόδων</div>
           <p class="has-text-centered is-size-2 has-text-danger has-text-weight-bold">{{info.total}} &euro;</p>
 
-          <div class="has-text-centered title has-text-info has-text-weight-bold is-size-6">Συνολικές καταχωρήσεις  {{info.totalBills}}</div>
+          <div class="has-text-centered title has-text-info has-text-weight-bold is-size-6">Συνολικές καταχωρήσεις {{info.totalBills}}</div>
         </div>
       </div>
     </div>

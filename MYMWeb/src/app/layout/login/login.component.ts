@@ -31,13 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.notify.error('OK');
     this.auth.login(this.username, this.password).subscribe(res => {
       if (res) {
         this.router.navigate(['/home']);
       } else {
       }
-    });
+    }, err => this.notify.error(err.message));
   }
 
 }
