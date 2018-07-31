@@ -9,6 +9,8 @@ import { BillModule } from './bill/bill.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 const config = {
   autoDismiss: true,
   positionClass: 'toast-bottom-center',
@@ -28,7 +30,8 @@ const routes: Route[] = [];
     AuthModule,
     LayoutModule,
     SharedModule,
-    ToastrModule.forRoot(config)
+    ToastrModule.forRoot(config),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [

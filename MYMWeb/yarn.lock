@@ -175,7 +175,7 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/pwa@^0.6.8":
+"@angular/pwa@0.6.8":
   version "0.6.8"
   resolved "https://registry.yarnpkg.com/@angular/pwa/-/pwa-0.6.8.tgz#2bc0d8e64e997bdfb39bbd2301322c0d2163851a"
   dependencies:
@@ -187,6 +187,12 @@
 "@angular/router@^6.0.3":
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.0.9.tgz#c40572031c7ff2e1dfb5279a8cb508b962a85262"
+  dependencies:
+    tslib "^1.9.0"
+
+"@angular/service-worker@^6.0.3":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-6.1.0.tgz#1072cb8829a1b3285291490f503074ce7170d670"
   dependencies:
     tslib "^1.9.0"
 

@@ -66,7 +66,7 @@ namespace MYM.Api.Controllers
             UserInfo info = new UserInfo();
             var d = req.RequestDate;
             var bills = _ctx.Bills.Where(w => w.PaidDate.Month == d.Month && w.PaidDate.Year == d.Year && w.UserId == userId);
-            info.Total = bills.Sum(x => x.Amount);
+            info.Total = Math.Round(bills.Sum(x => x.Amount), 2);
             info.TotalBills = bills.Count();
             return Ok(info);
         }
@@ -79,8 +79,8 @@ namespace MYM.Api.Controllers
             User user = new User();
             user.Name = "Έλίσα";
             user.Lastname = "Begaj";
-            user.Email = "elisa.begaj@gmail.com";
-            user.Password = AuthManager.HashPassword("1990");
+            user.Email = "per";
+            user.Password = AuthManager.HashPassword("123");
             user.BirthDate = DateTime.Parse("12-04-1990");
             user.Confirmed = true;
             _ctx.Users.Add(user);
