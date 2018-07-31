@@ -16,7 +16,7 @@
                 <nav class="level is-mobile" [routerLink]="['/bill',b.id]">
                     <div class="level-left">
                         <div>
-                            <div class="">{{b.category}}</div>
+                            <div class="">{{b.category.description}}</div>
                             <div class="comment" *ngIf="b.comment">({{b.comment}})</div>
                         </div>
                     </div>

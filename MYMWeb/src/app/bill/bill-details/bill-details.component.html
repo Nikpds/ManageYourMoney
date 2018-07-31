@@ -5,7 +5,7 @@
       <label class="label">Κατηγορία</label>
       <div class="control is-expanded">
         <div class="select is-fullwidth">
-          <select name="country" [(ngModel)]="bill.catId">
+          <select name="country" [(ngModel)]="bill.categoryId">
             <option [value]="c.id" *ngFor="let c of categories">{{c.description}}</option>
           </select>
         </div>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MYM.Api.Context;
 using MYM.Api.Models;
 using MYM.Api.Services;
@@ -25,14 +26,13 @@ namespace MYM.Api.Controllers
             {
                 bill.PaidDate = DateTime.UtcNow;
                 bill.UserId = User.GetUserId();
-                var category = _ctx.Categories.Find(bill.CatId);
+                var category = _ctx.Categories.Find(bill.CategoryId);
 
                 if (category == null)
                 {
                     return BadRequest("Δεν βρέθηκε η κατηγορία");
                 }
 
-                bill.Category = category.Description;
                 if (!bill.IsValid())
                 {
                     return BadRequest("Λανθασμένα Δεδομένα");
@@ -61,8 +61,7 @@ namespace MYM.Api.Controllers
                 }
                 original.Amount = bill.Amount;
                 original.Comment = bill.Comment;
-                original.CatId = bill.CatId;
-                original.Category = bill.Category;
+                original.CategoryId = bill.CategoryId;
 
                 var result = _ctx.Bills.Update(original);
                 _ctx.SaveChanges();
@@ -128,7 +127,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var userId = User.GetUserId();
-                var result = _ctx.Bills.Where(x => x.PaidDate.Month == req.RequestDate.Month && x.UserId == userId).OrderByDescending(x => x.PaidDate).ToList();
+                var result = _ctx.Bills.Include(i => i.Category).Where(x => x.PaidDate.Month == req.RequestDate.Month && x.UserId == userId).OrderByDescending(x => x.PaidDate).ToList();
 
                 return Ok(result);
             }

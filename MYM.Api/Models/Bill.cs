@@ -11,7 +11,7 @@ namespace MYM.Api.Models
         public string Comment { get; set; }
         public double Amount { get; set; }
 
-        public int CatId { get; set; }
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

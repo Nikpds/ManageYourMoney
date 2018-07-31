@@ -76,7 +76,7 @@ export class BillDetailsComponent implements OnInit {
   }
 
   checkIfValid(): boolean {
-    if (this.bill.catId && this.bill.amount > 0) {
+    if (this.bill.categoryId && this.bill.amount > 0) {
       return true;
     } else {
       this.notify.warning('Επιλέξτε την κατηγορία και συμπληρώστε το ποσό');

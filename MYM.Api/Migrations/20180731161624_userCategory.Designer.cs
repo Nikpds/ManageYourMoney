@@ -4,14 +4,16 @@ using MYM.Api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MYM.Api.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20180731161624_userCategory")]
+    partial class userCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,9 @@ namespace MYM.Api.Migrations
 
                     b.Property<double>("Amount");
 
-                    b.Property<int>("CategoryId");
+                    b.Property<int>("CatId");
+
+                    b.Property<int?>("CategoryId");
 
                     b.Property<string>("Comment");
 
@@ -90,8 +94,7 @@ namespace MYM.Api.Migrations
                 {
                     b.HasOne("MYM.Api.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("MYM.Api.Models.User", "User")
                         .WithMany("Bills")

@@ -15,6 +15,7 @@ namespace MYM.Api.Models
         public string Password { get; set; }
 
         public virtual List<Bill> Bills { get; set; }
+        public virtual List<Category> Categories { get; set; }
 
         [NotMapped]
         public int Age { get { return GetAge(BirthDate); } }

@@ -12,8 +12,8 @@ export class Bill {
     paidDate: Date;
     comment: string;
     amount: number;
-    catId: string;
-    category: string;
+    categoryId: string;
+    category: Category;
 }
 
 export class Category {

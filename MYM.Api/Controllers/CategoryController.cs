@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MYM.Api.Context;
 using MYM.Api.Models;
+using MYM.Api.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,11 @@ namespace MYM.Api.Controllers
 
                 var original = _ctx.Categories.Find(id);
 
+                if (original.UserId != User.GetUserId())
+                {
+                    return BadRequest("Δεν έχετε τα δικαιώματα για αυτή την προβολή");
+                }
+
                 return Ok(original);
             }
             catch (Exception ex)
@@ -44,7 +50,8 @@ namespace MYM.Api.Controllers
         {
             try
             {
-                var original = _ctx.Categories.ToList();
+                var userId = User.GetUserId();
+                var original = _ctx.Categories.Where(x => x.UserId == userId);
 
                 return Ok(original);
             }
@@ -59,6 +66,7 @@ namespace MYM.Api.Controllers
         {
             try
             {
+                cat.UserId = User.GetUserId();
                 _ctx.Categories.Add(cat);
                 _ctx.SaveChanges();
                 return Ok(cat);
@@ -94,6 +102,11 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var original = _ctx.Categories.Find(id);
+
+                if (original.UserId != User.GetUserId())
+                {
+                    return BadRequest("Δεν έχετε τα δικαιώματα για αυτή την διαγραφή");
+                }
 
                 if (original == null)
                 {
