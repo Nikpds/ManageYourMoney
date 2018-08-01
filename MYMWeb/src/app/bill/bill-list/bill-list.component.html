@@ -1,16 +1,42 @@
 <div class="columns is-marginless is-multiline">
-    <div class="column is-paddingless-bottom">
-        <div class="title is-5">Ιστορικό Λογαριασμών</div>
-        <!-- <div class="control">
-            <input class="input is-readonly is-small has-text-centered" [owlDateTimeTrigger]="dt1" [(ngModel)]="date.requestDate" [owlDateTime]="dt1" type="text"
-                readonly>
-            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-        </div> -->
+    <div class="column">
+        <div class="title is-5 has-text-centered">Ιστορικό Λογαριασμών</div>
+
     </div>
+    <div class="">
+        <div class="field has-addons">
+            <div class="control">
+                <a class="button button-width is-radiusless is-info" (click)="changeMonth(false)">
+                    <i class="fa fa-caret-left fa-lg"></i>
+                </a>
+            </div>
+            <div class="control is-radiusless is-expanded">
+                <input class="input is-fullwidth has-text-centered has-text-weight-bold" readonly type="text" value="{{request.requestDate | date:'MMMM'}}"
+                    placeholder="Find a repository">
+            </div>
+            <div class="control">
+                <a class="button button-width is-radiusless is-info" (click)="changeMonth(true)">
+                    <i class="fa fa-caret-right fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     <div class="column is-paddingless">
+        <section class="hero is-large" *ngIf="bills.length == 0">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="title is-5 has-text-centered has-text-grey">
+                        Δεν υπαρχουν λογαριασμοί προς προβολή.
+                    </div>
+
+                </div>
+            </div>
+        </section>
         <div *ngFor="let b of bills;let i =index;let odd=odd">
-            <div class="panel-block is-block" *ngIf="isNewDate(i)">
-                <div class="is-italic has-text-centered is-size-7 has-text-weight-bold">{{b.paidDate | date: 'dd-MM-yyy'}}</div>
+            <div class="panel-block is-block background-light-green" *ngIf="isNewDate(i)">
+                <div class="is-italic  is-size-7 has-text-weight-bold">{{b.paidDate | date: 'dd-MM-yyy'}}</div>
             </div>
             <div class="panel-block  is-block" [ngClass]="{'has-background-warning-light': odd}">
                 <nav class="level is-mobile" [routerLink]="['/bill',b.id]">
@@ -22,7 +48,13 @@
                     </div>
                     <div class="level-right">
                         <div class="level-item">
-                            <span class="is-size-5">{{b.amount}} &euro;</span></div>
+                            <span class="is-size-5">{{b.amount}} &euro;</span>
+                        </div>
+                        <div class="level-item is-marginless">
+                            <a class="" (click)="changeMonth(true)">
+                                <i class="fa fa-chevron-right has-text-grey "></i>
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </div>

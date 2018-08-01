@@ -31,6 +31,8 @@ namespace MYM.Api.Services
             claims.Add(new Claim("Id", user.Id));
             claims.Add(new Claim("Name", user.Name));
             claims.Add(new Claim("Lastname", user.Lastname));
+            claims.Add(new Claim("Role", user.Role.ToString()));
+            claims.Add(new Claim("Email", user.Email));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -31,7 +31,7 @@ namespace MYM.Api.Controllers
                 {
                     return BadRequest("Λάθος δεδομένα");
                 }
-
+                user.Role = Role.User;
                 var result = _ctx.Users.Add(user);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
@@ -70,24 +70,31 @@ namespace MYM.Api.Controllers
             info.TotalBills = bills.Count();
             return Ok(info);
         }
-
         [AllowAnonymous]
-        [Route("insert")]
+        [Route("create/new/user")]
         [HttpGet]
         public IActionResult NewUser()
         {
-            User user = new User();
-            user.Name = "Έλίσα";
-            user.Lastname = "Begaj";
-            user.Email = "per";
-            user.Password = AuthManager.HashPassword("123");
-            user.BirthDate = DateTime.Parse("12-04-1990");
+            var user = new User();
+            user.BirthDate = new DateTime();
             user.Confirmed = true;
+            user.Email = "Ssimeonidou.sofia@gmail.com";
+            user.Password = AuthManager.HashPassword("9876");
+            user.Name = "Σοφία";
+            user.Lastname = "Συμεωνίδου";
+            user.Role = Role.Admin;
+            
+            user.Categories.Add(new Category() { Description = "Φαγητό" });
+            user.Categories.Add(new Category() { Description = "Λογαριασμοί" });
+            user.Categories.Add(new Category() { Description = "SuperMarket" });
+            user.Categories.Add(new Category() { Description = "Βενζίνη" });
+
             _ctx.Users.Add(user);
             _ctx.SaveChanges();
-
-            return Ok("ok");
+            return Ok("User was created");
         }
+
+
 
     }
 }

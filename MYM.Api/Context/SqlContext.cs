@@ -19,6 +19,7 @@ namespace MYM.Api.Context
             var userBuilder = modelBuilder.Entity<User>();
             userBuilder.HasKey(h => h.Id);
             userBuilder.Property(p => p.Email).IsRequired();
+            userBuilder.Property(p => p.Role).IsRequired();
             userBuilder.Property(p => p.Lastname).IsRequired();
             userBuilder.Property(p => p.Name).IsRequired();
             userBuilder.HasMany(i => i.Bills)

@@ -1,6 +1,6 @@
 <div class="columns is-marginless">
   <div class="column is-12" *ngIf="bill">
-    <p class="title is-5">{{bill.id ? bill.category : 'Νέα Καταχώρηση'}}</p>
+    <p class="title is-5">{{bill.id ? bill.category.description : 'Νέα Καταχώρηση'}}</p>
     <div class="field">
       <label class="label">Κατηγορία</label>
       <div class="control is-expanded">

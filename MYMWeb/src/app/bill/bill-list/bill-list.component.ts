@@ -9,7 +9,7 @@ import { UserRequest, Bill } from '../../model';
   styleUrls: ['./bill-list.component.sass']
 })
 export class BillListComponent implements OnInit {
-  date = new UserRequest();
+  request = new UserRequest();
   bills = new Array<Bill>();
   lastdate: number;
   constructor(
@@ -22,7 +22,7 @@ export class BillListComponent implements OnInit {
   }
 
   getBillsByMonth() {
-    this.base.getBillsByMonth(this.date).subscribe(res => {
+    this.base.getBillsByMonth(this.request).subscribe(res => {
       this.bills = res;
     });
   }
@@ -35,5 +35,11 @@ export class BillListComponent implements OnInit {
       const d = new Date(this.bills[i].paidDate).getDay();
       return d === this.lastdate ? false : true;
     }
+  }
+
+  changeMonth(add: boolean) {
+    const m = add ? 1 : -1;
+    this.request.requestDate = new Date(this.request.requestDate.setMonth(this.request.requestDate.getMonth() + m));
+    this.getBillsByMonth();
   }
 }

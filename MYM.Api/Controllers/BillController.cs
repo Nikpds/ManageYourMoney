@@ -107,7 +107,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var userId = User.GetUserId();
-                var original = _ctx.Bills.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+                var original = _ctx.Bills.Include(i=>i.Category).FirstOrDefault(x => x.Id == id && x.UserId == userId);
 
                 return Ok(original);
             }

@@ -13,6 +13,7 @@ namespace MYM.Api.Models
         public bool Confirmed { get; set; }
         public DateTime BirthDate { get; set; }
         public string Password { get; set; }
+        public Role Role { get; set; }
 
         public virtual List<Bill> Bills { get; set; }
         public virtual List<Category> Categories { get; set; }
@@ -28,7 +29,13 @@ namespace MYM.Api.Models
         }
         public User()
         {
+            Categories = new List<Category>();
             Bills = new List<Bill>();
-        }
+        }       
+    }
+    public enum Role
+    {
+        Admin,
+        User
     }
 }
