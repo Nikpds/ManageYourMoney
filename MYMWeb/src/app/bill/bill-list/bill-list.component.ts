@@ -24,16 +24,19 @@ export class BillListComponent implements OnInit {
   getBillsByMonth() {
     this.base.getBillsByMonth(this.request).subscribe(res => {
       this.bills = res;
+    }, error => {
+      this.notify.error(error.error);
     });
   }
 
+
   isNewDate(i: number) {
     if (i === 0) {
-      this.lastdate = new Date(this.bills[i].paidDate).getDay();
       return true;
     } else {
-      const d = new Date(this.bills[i].paidDate).getDay();
-      return d === this.lastdate ? false : true;
+      this.lastdate = new Date(this.bills[i - 1].paidDate).setHours(0, 0, 0, 0);
+      const d = new Date(this.bills[i].paidDate).setHours(0, 0, 0, 0);
+      return !(d === this.lastdate);
     }
   }
 

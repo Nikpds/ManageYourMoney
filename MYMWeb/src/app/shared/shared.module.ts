@@ -22,7 +22,7 @@ export const DefaultIntl = {
     ReactiveFormsModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [
 

@@ -5,6 +5,7 @@ using MYM.Api.Context;
 using MYM.Api.Models;
 using MYM.Api.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MYM.Api.Controllers
@@ -107,7 +108,7 @@ namespace MYM.Api.Controllers
                     return BadRequest("Λανθασμένα Δεδομένα");
                 }
                 var userId = User.GetUserId();
-                var original = _ctx.Bills.Include(i=>i.Category).FirstOrDefault(x => x.Id == id && x.UserId == userId);
+                var original = _ctx.Bills.Include(i => i.Category).FirstOrDefault(x => x.Id == id && x.UserId == userId);
 
                 return Ok(original);
             }
@@ -130,6 +131,38 @@ namespace MYM.Api.Controllers
                 var result = _ctx.Bills.Include(i => i.Category).Where(x => x.PaidDate.Month == req.RequestDate.Month && x.UserId == userId).OrderByDescending(x => x.PaidDate).ToList();
 
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Σφάλμα εφαρμογής");
+            }
+        }
+
+        [HttpPost("pie/chart")]
+        public IActionResult GetPieHistory([FromBody] UserRequest req)
+        {
+            try
+            {
+                var pie = Tuple.Create(new List<string>(), new List<double>());
+                if (req.RequestDate == null)
+                {
+                    return BadRequest("Λανθασμένα Δεδομένα");
+                }
+                var userId = User.GetUserId();
+                var categories = _ctx.Categories.Where(x => x.UserId == userId).ToList();
+                var result = _ctx.Bills.Include(i => i.Category).Where(x => x.PaidDate.Month == req.RequestDate.Month && x.UserId == userId).OrderByDescending(x => x.PaidDate).ToList();
+                for (var i = 0; i < categories.Count; i++)
+                {
+                    var piece = new PieChart();
+                    piece.Category = categories[i].Description;
+                    var total = result.Where(x => x.Category.Description == categories[i].Description).Select(x => x.Amount);
+                    piece.Total = total.Sum(x => x);
+                    pie.Item1.Add(piece.Category);
+                    pie.Item2.Add(Math.Round(piece.Total, 2));
+                }
+
+
+                return Ok(pie);
             }
             catch (Exception ex)
             {

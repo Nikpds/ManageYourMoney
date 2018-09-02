@@ -7,10 +7,12 @@ import { AuthGuard } from '../auth/auth.guard';
 import { BillDetailsComponent } from './bill-details/bill-details.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { BillsStatsComponent } from './bills-stats/bills-stats.component';
 
 const routes: Route[] = [
   { path: 'bill/:id', component: BillDetailsComponent, canActivate: [AuthGuard] },
   { path: 'bill/new', component: BillDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'bills/chart', component: BillsStatsComponent, canActivate: [AuthGuard] },
   { path: 'bills', component: BillListComponent, canActivate: [AuthGuard] },
   { path: 'category/:id', component: CategoryComponent, canActivate: [AuthGuard] },
   { path: 'category/new', component: CategoryComponent, canActivate: [AuthGuard] },
@@ -25,7 +27,8 @@ const routes: Route[] = [
     BillDetailsComponent,
     BillListComponent,
     CategoryComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    BillsStatsComponent
   ]
 })
 export class BillModule { }

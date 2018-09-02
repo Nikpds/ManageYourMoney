@@ -70,29 +70,41 @@ namespace MYM.Api.Controllers
             info.TotalBills = bills.Count();
             return Ok(info);
         }
-        [AllowAnonymous]
-        [Route("create/new/user")]
-        [HttpGet]
-        public IActionResult NewUser()
-        {
-            var user = new User();
-            user.BirthDate = new DateTime();
-            user.Confirmed = true;
-            user.Email = "Ssimeonidou.sofia@gmail.com";
-            user.Password = AuthManager.HashPassword("9876");
-            user.Name = "Σοφία";
-            user.Lastname = "Συμεωνίδου";
-            user.Role = Role.Admin;
-            
-            user.Categories.Add(new Category() { Description = "Φαγητό" });
-            user.Categories.Add(new Category() { Description = "Λογαριασμοί" });
-            user.Categories.Add(new Category() { Description = "SuperMarket" });
-            user.Categories.Add(new Category() { Description = "Βενζίνη" });
+        //[AllowAnonymous]
+        //[Route("create/new/user")]
+        //[HttpGet]
+        //public IActionResult NewUser()
+        //{
+        //    var user = new User();
+        //    user.BirthDate = new DateTime();
+        //    user.Confirmed = true;
+        //    user.Email = "Ssimeonidou.sofia@gmail.com";
+        //    user.Password = AuthManager.HashPassword("9876");
+        //    user.Name = "Σοφία";
+        //    user.Lastname = "Συμεωνίδου";
+        //    user.Role = Role.Admin;
 
-            _ctx.Users.Add(user);
-            _ctx.SaveChanges();
-            return Ok("User was created");
-        }
+        //    user.Categories.Add(new Category() { Description = "Φαγητό" });
+        //    user.Categories.Add(new Category() { Description = "Λογαριασμοί" });
+        //    user.Categories.Add(new Category() { Description = "SuperMarket" });
+        //    user.Categories.Add(new Category() { Description = "Βενζίνη" });
+
+        //    _ctx.Users.Add(user);
+        //    _ctx.SaveChanges();
+        //    return Ok("User was created");
+        //}
+
+        //[AllowAnonymous]
+        //[Route("change/password")]
+        //[HttpGet]
+        //public IActionResult ChangePassword()
+        //{
+        //    var user = _ctx.Users.FirstOrDefault(x => x.Email == "perpegr@hotmail.com");
+        //    user.Password = AuthManager.HashPassword("1986");
+        //    _ctx.Users.Update(user);
+        //    _ctx.SaveChanges();
+        //    return Ok("User was created");
+        //}
 
 
 

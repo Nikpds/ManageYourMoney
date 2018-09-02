@@ -70,6 +70,11 @@ export class BaseService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getPieCharts(req: UserRequest): Observable<any> {
+    return this.http.post<any>(`${this.billUrl}/pie/chart`, req)
+      .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.error || 'Server Error');
   }

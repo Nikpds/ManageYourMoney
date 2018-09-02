@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Route } from '@angular/router';
-
 import { ToastrModule } from 'ngx-toastr';
 import { LayoutModule } from './layout/layout.module';
 import { BillModule } from './bill/bill.module';
